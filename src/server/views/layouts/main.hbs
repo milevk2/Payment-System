@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <style>
+        main {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+
+        }
+
+        nav {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            background-color: antiquewhite;
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            border-radius: 0.5em;
+            margin: 1em;
+            padding: 0.3em;
+        }
+
+    .formHolder{
+
+        position: relative;
+        left:40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+
+        text-align: center;
+    }
+
+    .profile{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .error {
+
+        font-size: 900;
+        font-weight: 900;
+        color: red;
+    }
+
+    ul {
+
+        list-style: none;
+        gap:5px;
+        font-size: 20px;
+        font-weight: 500;  
+    }
+
+    .commentSection{
+        text-align: center;
+        padding: 0.9em;
+        margin-top: 5em;
+        background-color: #ccc;
+        border: 1px solid gainsboro;
+        border-radius: 0.5em;
+    }
+
+
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <h1>Transactions Processing System</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="#">Information</a>
+            <a href="#">Merchants</a>
+            <a href="#">Transactions</a>
+
+            <span class="formHolder">
+                <form action="/getMerchant" method="get">
+
+                    <label for="MID">Merchant Id:</label>
+                    <input type="text" for="MID" name="MID" id="MID" placeholder="Search for merchant's profiles">
+                    <button type="submit" id="searchBtn">Search</button>
+                </form>
+            </span>
+        </nav>
+
+        {{{body}}}
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<main class="profile">
+
+    <h2>Merchant's profile</h2>
+
+    <ul>
+        <li>Name: {{name}} </li>
+        <li>MID: {{MID}} </li>
+        <li>DOB: {{DOB}} </li>
+        <li>TPV: {{TPV}} </li>
+        <li>Last Payout: {{last_payout}}</li>
+    </ul>
+
+    <summary>
+        Comments related to this merchant
+
+        <details>
+
+            <ol>
+
+                {{#each comments}}
+                   
+                    <li>
+                        {{this}}
+                    </li>
+
+                {{/each}}
+
+            </ol>
+
+        </details>
+    </summary>
+
+    <span class="commentSection">
+
+        <h3>Add new comments here</h3>
+        <form method="post" action="/addComment">
+
+            <label for="comment">Comment</label>
+            <input type="text" name="comment" id="commentField"> 
+            <input type="text" name="MID" value={{MID}} style="display: none;">
+            <button type="submit" id="commentBtn">Add</button>
+
+        </form>
+
+    </span>
+
+
+
+</main>
