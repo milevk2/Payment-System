@@ -1,5 +1,5 @@
-const transaction = require("../models/transaction.js");
-const merchant = require("../models/merchant.js")
+// const transaction = require("../models/TransactionModel.js");
+// const merchant = require("../models/U.js")
 
 exports.getAllTransactions = async () => {
 
