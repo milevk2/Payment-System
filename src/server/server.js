@@ -1,11 +1,10 @@
 const express = require('express');
-const handlebarsConfig = require('./configurations/handlebarsConfig.js');
 const dbConnect = require('./configurations/dbConfig.js');
-const { getAllTransactions, getTransaction, getMerchantDetails, addComment } = require('./services/dataSearch.js');
+const serverConfig = require('./configurations/serverConfig.js');
+const userService = require('./services/userService.js');
 
 const app = express();
-handlebarsConfig(app);
-app.use(express.urlencoded({ extended: true }));
+serverConfig(app);
 
 try {
     dbConnect();
@@ -21,6 +20,50 @@ app.get('/', (req, res) => {
     res.render('home', { title: 'Welcome' });
 
 })
+
+app.get('/login', (req, res) => {
+
+    res.render('login');
+
+})
+
+app.post('/login', async (req, res) => {
+
+    const { email, password } = req.body;
+
+    try {
+
+       const jwtToken =  await userService.login(email, password);
+       res.cookie('jwtToken', jwtToken, { httpOnly: true, maxAge: 3600000 })
+       res.send('Login successful!');
+
+    }
+    catch (err) {
+        console.log(err);
+        res.send('User name or password do not match!');
+    }
+
+})
+
+app.get('/register', (req, res) => {
+
+    res.render('register');
+
+})
+
+app.post('/register', async (req, res) => {
+
+    try {
+        await userService.createUser(req.body);
+        const successMessage = { message: 'You have been successfully registered!' }
+        res.render('login', { successMessage });
+    }
+    catch (err) {
+
+        res.render('register', { err });
+    }
+})
+
 
 app.get('/getMerchant', async (req, res) => {
 
@@ -45,7 +88,7 @@ app.post('/addComment', async (req, res) => {
         const merchantDetails = await addComment(MID, comment);
 
         console.log(merchantDetails);
-        res.render('merchantProfile.hbs', {...merchantDetails})
+        res.render('merchantProfile.hbs', { ...merchantDetails })
     }
     catch (err) {
 
