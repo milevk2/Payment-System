@@ -12,16 +12,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            
+            margin-top: 50px;
 
         }
 
         nav {
-            position: relative;
+          
             width: 100%;
             display: flex;
             flex-direction: row;
             background-color: antiquewhite;
+            
         }
 
         a {
@@ -33,53 +34,93 @@
             padding: 0.3em;
         }
 
-    .formHolder{
+        h1 {
 
-        position: relative;
-        left:40%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+            text-align: center;
+        }
 
-    h1 {
+        .profile {
 
-        text-align: center;
-    }
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-    .profile{
+        }
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        .error {
 
-    }
+            font-size: 900;
+            font-weight: 900;
+            color: red;
+        }
 
-    .error {
+        ul {
 
-        font-size: 900;
-        font-weight: 900;
-        color: red;
-    }
+            display: flex;    
+            list-style: none;
+            gap: 5px;
+            font-size: 20px;
+            font-weight: 500;
+        }
 
-    ul {
+        .commentSection {
+            text-align: center;
+            padding: 0.9em;
+            margin-top: 5em;
+            background-color: #ccc;
+            border: 1px solid gainsboro;
+            border-radius: 0.5em;
+        }
 
-        list-style: none;
-        gap:5px;
-        font-size: 20px;
-        font-weight: 500;  
-    }
+        form.default {
 
-    .commentSection{
-        text-align: center;
-        padding: 0.9em;
-        margin-top: 5em;
-        background-color: #ccc;
-        border: 1px solid gainsboro;
-        border-radius: 0.5em;
-    }
+            padding: 20px 50px;
+            background-color: #faebd7;
+            border-radius: 8px;
+            border: 1px solid gray
+        }
 
+        form.default input {
+
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        form.default input:focus {
+
+            outline: none;
+        }
+
+        .container {
+
+            margin: 15px;
+        }
+
+        .searchForm{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .err {
+
+            color: red;
+            background-color: pink;
+            border: 1px solid red;
+            border-radius: 5px;
+            padding: 0.5em
+        }
+
+        .success {
+
+            color: green;
+            background-color: lightgreen;
+            border: 1px solid green;
+            border-radius: 5px;
+            padding: 0.5em;
+            margin: 10px;
+        }
 
     </style>
 
@@ -93,15 +134,20 @@
             <a href="#">Information</a>
             <a href="#">Merchants</a>
             <a href="#">Transactions</a>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
 
-            <span class="formHolder">
-                <form action="/getMerchant" method="get">
+            <span class="searchForm">
+            <form action="/getMerchant" method="get">
 
-                    <label for="MID">Merchant Id:</label>
-                    <input type="text" for="MID" name="MID" id="MID" placeholder="Search for merchant's profiles">
-                    <button type="submit" id="searchBtn">Search</button>
-                </form>
+                <label for="search"></label>
+                <input type="text" for="search" name="search" id="search" placeholder="Search for merchant's profiles">
+                <button type="submit" id="searchBtn">Search</button>
+            </form>
             </span>
+
+
+
         </nav>
 
         {{{body}}}

@@ -1,0 +1,29 @@
+<main>
+    {{#if successMessage}}
+
+    <div class="success">
+        {{successMessage.message}}
+    </div>
+
+    {{/if}}
+
+
+    <form class="default" action="/login" method="POST">
+
+        <div class="container">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+        </div>
+
+        <div class="container">
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+        </div>
+
+        <div class="container">
+            <input type="submit" value="Login"><br>
+        </div>
+
+    </form>
+
+</main>

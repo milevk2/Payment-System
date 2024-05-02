@@ -1,0 +1,61 @@
+<main>
+
+    <form class="default" action="/register" method="POST">
+
+        <div class="container">
+            <label for="first_name">First Name:</label><br>
+            <input type="text" id="first_name" name="first_name" required><br>
+        </div>
+
+        <div class="container">
+            <label for="last_name">Last Name:</label><br>
+            <input type="text" id="last_name" name="last_name" required><br>
+        </div>
+
+        <div class="container">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+        </div>
+
+        <div class="container">
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+        </div>
+
+        <div class="container">
+            <label for="rePassword">Repeat Password:</label><br>
+            <input type="password" id="rePassword" name="rePassword" required><br>
+        </div>
+
+        <div class="container">
+            <label for="address">Address:</label><br>
+            <input type="text" id="address" name="address"><br>
+        </div>
+
+        <div class="container">
+            <label for="phone">Phone:</label><br>
+            <input type="tel" id="phone" name="phone"><br>
+        </div>
+
+        <div class="container">
+            <label for="DOB">Date of Birth:</label><br>
+            <input type="date" id="DOB" name="DOB"><br>
+        </div>
+
+        <div class="container">
+            <input type="submit" value="Register">
+        </div>
+
+
+        {{#if err}}
+
+        <div class="err">
+            {{err.message}}
+        </div>
+
+        {{/if}}
+
+
+    </form>
+
+</main>
