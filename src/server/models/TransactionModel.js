@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const transactionSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
 
     tid: String,
     sender: String,
@@ -10,6 +10,6 @@ const transactionSchema = new mongoose.Schema({
 
 })
 
-const transaction = mongoose.model('Transaction', transactionSchema);
+const Transaction = mongoose.model('Transaction', TransactionSchema);
 
-module.exports = transaction;
+module.exports = Transaction;

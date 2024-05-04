@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const depositSchema = new mongoose.Schema({
+const DepositSchema = new mongoose.Schema({
 
     amount: Number,
     card_number: Number,
@@ -8,6 +8,6 @@ const depositSchema = new mongoose.Schema({
 
 })
 
-const deposit = mongoose.model('Deposit', depositSchema);
+const Deposit = mongoose.model('Deposit', DepositSchema);
 
-module.exports = deposit;
+module.exports = Deposit;
