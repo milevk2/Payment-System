@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
-const cardSchema = new mongoose.Schema({
+const CardSchema = new mongoose.Schema({
 
+    owner_id: String,
     cardholder: String,
     card_number: Number,
-    expiration: Date,
-
+    expiration: String,
+    card_balance: Number
 })
 
-const card = mongoose.model('Card', cardSchema);
+const Card = mongoose.model('Card', CardSchema);
 
-module.exports = card;
+module.exports = {Card, CardSchema};
