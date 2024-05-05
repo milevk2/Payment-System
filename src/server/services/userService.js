@@ -5,17 +5,16 @@ const jwt = require('../lib/promisifiedJwt.js')
 const { createCard } = require('./cardService.js');
 const { MongooseError } = require('mongoose');
 
-
-
 exports.createUser = async (data) => {
 
     return await User.create(data);
 }
 
-exports.autenticateUser = () => {
+exports.getUserData = async (userId) => {
 
-
+    return await User.findOne({_id: userId}).lean();
 }
+
 
 exports.login = async (email, password) => {
 
