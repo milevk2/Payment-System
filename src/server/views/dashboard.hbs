@@ -1,0 +1,170 @@
+<main>
+
+    <style>
+        .balance {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+        }
+
+        .balance p {
+
+            font-size: 30px;
+            font-weight: bold;
+            color: red
+        }
+
+        .cardList {
+
+            padding: 10px;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            gap:20px;
+
+        }
+
+        .cardList li {
+
+            position: relative;
+            width: 250px;
+            height: 140px;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 8px;
+        }
+
+        .btn {
+            color: white;
+            border: 1px solid white;
+            border-radius: 8px;
+            padding: 5px;
+
+        }
+
+        .delete {
+
+            background-color: red;
+        }
+
+        .deposit {
+
+            height: 33px;
+            background-color: green;
+            letter-spacing: 1px;
+        }
+
+        .row-btns {
+
+            position: absolute;
+            bottom: -5px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+
+        }
+
+        .numField {
+
+            position: absolute;
+            bottom: 30%;
+            right: 25%;
+            width: 50px;
+        }
+
+        .cardsContainer {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            width: 50%;
+            min-width: fit-content;
+            background-color: lightcyan;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+    </style>
+
+    <div class="balance">
+        <h2>Available account balance:</h2>
+        <p>{{balance}}</p>
+
+    </div>
+
+    <div>
+        <form action="/createCard" method="post">
+
+            <div class="container">
+                <select name="schemaProvider" id="schemaProvider">
+
+                    <option value="3">Amex</option>
+                    <option value="4">Visa</option>
+                    <option value="5">Mastercard</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="container">
+
+                <input type="submit" value="Create Card">
+
+            </div>
+
+            {{#if err}}
+            <div class="container">
+
+                <div class="err">{{err.message}}</div>
+
+            </div>
+            {{/if}}
+
+        </form>
+    </div>
+
+
+    <div class="cardsContainer">
+        <h2>Cards associated with your profile:</h2>
+        <ul class="cardList">
+
+            {{#each cards}}
+
+            <li id={{this._id}}>
+                <form action="/depositFunds/{{this._id}}" method="POST"></form>
+                <p> {{this.cardholder}}</p>
+                <p> {{this.card_number}}</p>
+                <p> {{this.expiration}}</p>
+
+                <div class="row-btns">
+                    <a class="btn delete" href="/deleteCard/{{this._id}}">
+
+                        Delete card
+
+                    </a>
+                    <input class="btn deposit" type="submit" value="Deposit Funds" />
+                </div>
+
+                <input type="number" value="0" class="numField" />
+
+
+
+                </form>
+            </li>
+            {{/each}}
+        </ul>
+
+
+    </div>
+
+
+
+</main>
