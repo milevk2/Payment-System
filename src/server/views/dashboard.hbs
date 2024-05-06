@@ -7,14 +7,20 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-
+            font-weight: bold;
+            margin:25px;
+            padding:15px;
+            background-color: lightgray;
         }
 
         .balance p {
 
             font-size: 30px;
             font-weight: bold;
-            color: red
+            color: red;
+            background-color: aliceblue;
+            padding: 20px;
+            border-radius: 8px;
         }
 
         .cardList {
@@ -26,7 +32,7 @@
             align-items: center;
             justify-content: center;
             list-style: none;
-            gap:20px;
+            gap: 20px;
 
         }
 
@@ -48,6 +54,11 @@
 
         }
 
+        .btn:hover: {
+
+            cursor: pointer;
+        }
+
         .delete {
 
             background-color: red;
@@ -59,6 +70,12 @@
             background-color: green;
             letter-spacing: 1px;
         }
+
+        .deposit:hover {
+
+            cursor: pointer;
+        }
+
 
         .row-btns {
 
@@ -84,18 +101,37 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-
             width: 50%;
             min-width: fit-content;
-            background-color: lightcyan;
             border: 1px solid gray;
             border-radius: 10px;
+        }
+
+        .invisible {
+
+            display: none;
         }
     </style>
 
     <div class="balance">
         <h2>Available account balance:</h2>
         <p>{{balance}}</p>
+
+        <form action="/transfer" method="POST">
+
+            <div class="container">
+                <label for="amount">Enter the the amount you want to transfer:</label>
+                <input type="number" name="amount" value="0" />
+            </div>
+
+            <div class="container">
+                <label for="customerId">Enter the customer id of the receiver:</label>
+                <input type="text" name="customerId" placeholder="e.g C0D8L2V0N4J3" />
+            </div>
+
+            <input class="btn deposit" type="submit" value="Transfer Funds" />
+
+        </form>
 
     </div>
 
@@ -132,6 +168,7 @@
     </div>
 
 
+    {{#if cards}}
     <div class="cardsContainer">
         <h2>Cards associated with your profile:</h2>
         <ul class="cardList">
@@ -139,21 +176,23 @@
             {{#each cards}}
 
             <li id={{this._id}}>
-                <form action="/depositFunds/{{this._id}}" method="POST"></form>
-                <p> {{this.cardholder}}</p>
-                <p> {{this.card_number}}</p>
-                <p> {{this.expiration}}</p>
+                <form action="/depositFunds" method="POST">
+                    <p> {{this.cardholder}}</p>
+                    <p> {{this.card_number}}</p>
+                    <p> {{this.expiration}}</p>
 
-                <div class="row-btns">
-                    <a class="btn delete" href="/deleteCard/{{this._id}}">
+                    <div class="row-btns">
+                        <a class="btn delete" href="/deleteCard/{{this._id}}">
 
-                        Delete card
+                            Delete card
 
-                    </a>
-                    <input class="btn deposit" type="submit" value="Deposit Funds" />
-                </div>
+                        </a>
+                        <input class="btn deposit" type="submit" value="Deposit Funds" />
+                    </div>
 
-                <input type="number" value="0" class="numField" />
+                    <input type="text" class="invisible" name="card_id" value="{{this.this._id}}" readonly />
+                    <input type="text" class="invisible" name="card_number" value="{{this.card_number}}" readonly />
+                    <input type="number" name="amount" value="0" class="numField" />
 
 
 
@@ -161,6 +200,12 @@
             </li>
             {{/each}}
         </ul>
+
+        {{else}}
+
+        <h2>Currently you do not have any cards associated with this profile.</h2>
+
+        {{/if}}
 
 
     </div>
