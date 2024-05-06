@@ -12,7 +12,7 @@ async function authMiddleWare(req, res, next) {
       try {
         const decodedToken = await jwt.verify(token, secret);
         req.userData = decodedToken;
-  
+        req.isToken = true;
       }
       catch (err) {
         res.clearCookie("jwtToken");
