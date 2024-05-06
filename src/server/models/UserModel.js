@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { CardSchema } = require('./CardModel.js');
+const generateId = require('../lib/generateId.js');
+
 
 const UserSchema = new mongoose.Schema({
 
@@ -29,7 +31,8 @@ const UserSchema = new mongoose.Schema({
         type: [CardSchema],
         validate: [cardArrayLimit, '{PATH} exceeds the limit of 5']
     },    
-    balance: Number
+    balance: Number,
+    customerId: String
 })
 
 function cardArrayLimit(arr) {
@@ -49,8 +52,8 @@ UserSchema.pre("save", async function () {
 
     if (this.__v !==  undefined) return;  //if we do not do this, each modification of the document will trigger this function, which is not expected behaviour;
 
-    const hash = await bcrypt.hash(this.password, 10);  
-    this.password = hash;
+    this.customerId = generateId('C0');
+    this.password = await bcrypt.hash(this.password, 10);
     this.balance = 0;
 
 });
