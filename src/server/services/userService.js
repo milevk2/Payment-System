@@ -31,7 +31,7 @@ exports.login = async (email, password) => {
         throw new MongooseError('Invalid password');
     }
 
-    const token = await jwt.sign({ userId: user._id, first_name: user.first_name, last_name: user.last_name }, jwtSecret, { expiresIn: '1h' });
+    const token = await jwt.sign({ userId: user._id, first_name: user.first_name, last_name: user.last_name, customerId: user.customerId }, jwtSecret, { expiresIn: '1h' });
 
     return token;
 }
