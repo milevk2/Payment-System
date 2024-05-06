@@ -6,7 +6,7 @@ const TransactionSchema = new mongoose.Schema({
     sender: String,
     receiver: String,
     amount: Number,
-    date: Date,
+    transaction_date: Date,
 
 })
 
