@@ -1,5 +1,6 @@
 const { Card } = require('../models/CardModel.js');
 const mongoose = require('mongoose');
+const { MongooseError } = require('mongoose');
 const User = require('../models/UserModel.js');
 
 //create credit card
@@ -21,23 +22,22 @@ exports.createCard = async (userId, schemaProvider, cardholder) => {
 //delete credit card
 exports.deleteCard = async (userId, cardId) => {
 
-   // const session = await mongoose.startSession();
+    // const session = await mongoose.startSession();
 
-   // session.startTransaction();
+    // session.startTransaction()
 
-    try {
+    const result = await Card.deleteOne({ _id: cardId, owner_id: userId });
 
-        await Card.deleteOne({ _id: cardId });
-        await User.findByIdAndUpdate({ _id: userId }, { $pull: { cards: {_id: cardId} } });
-        // await session.commitTransaction();
-        
+    if (result.deletedCount == 0) {
+
+        throw new MongooseError('You are not allowed to delete this card!');
     }
-    catch (err) {
 
-        console.log(err.message);
-        // await session.abortTransaction();
-    }
-   }
+    await User.findByIdAndUpdate({ _id: userId }, { $pull: { cards: { _id: cardId } } });
+    // await session.commitTransaction();
+}
+    
+
 
 
 //list all cards per user
