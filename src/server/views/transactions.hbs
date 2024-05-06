@@ -1,0 +1,162 @@
+<main>
+
+    <style>
+        ul {
+
+            display: flex;
+            flex-direction: column;
+            border: 1px solid gray;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        li {
+
+            display: flex;
+            flex-direction: row;
+
+
+        }
+
+        ul p {
+
+            text-align: center;
+        }
+
+        li * {
+
+            width: 150px;
+        }
+
+        .tableHead{
+
+            font-weight: bold;
+            background-color: lightblue;
+        }
+
+        li:nth-child(even) {
+
+            background-color: lightgray;
+        }
+
+    </style>
+
+    <h2>Received Transactions:</h2>
+    <ul class="received">
+
+        <li class="tableHead">
+            <div class="container">
+                <p>Transaction:</p>
+            </div>
+            <div class="container">
+                <p>Sender:</p>
+            </div>
+            <div class="container">
+                <p>Receiver:</p>
+            </div>
+            <div class="container">
+                <p>Amount:</p>
+            </div>
+            <div class="container">
+                <p>Date:</p>
+            </div>
+        </li>
+
+        {{#each userTransactions.received}}
+
+        <li>
+            <div class="container">
+
+                <p>{{this.tid}}</p>
+
+            </div>
+
+            <div class="container">
+
+                <p>{{this.sender}}</p>
+
+            </div>
+
+            <div class="container">
+
+                <p>{{this.receiver}}</p>
+
+            </div>
+
+            <div class="container">
+
+                <p>{{this.amount}}</p>
+            </div>
+
+            <div class="container">
+
+                <p>
+                    {{this.transaction_date}}
+                </p>
+
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+
+    <h2>Sent Transactions:</h2>
+    <ul class="sent">
+
+
+       <li class="tableHead">
+            <div class="container">
+                <p>Transaction:</p>
+            </div>
+            <div class="container">
+                <p>Sender:</p>
+            </div>
+            <div class="container">
+                <p>Receiver:</p>
+            </div>
+            <div class="container">
+                <p>Amount:</p>
+            </div>
+            <div class="container">
+                <p>Date:</p>
+            </div>
+        </li>
+
+        {{#each userTransactions.sent}}
+
+        <li>
+            <div class="container">
+
+                <p>{{this.tid}}</p>
+
+            </div>
+
+            <div class="container">
+
+                <p>{{this.sender}}</p>
+
+            </div>
+
+            <div class="container">
+
+                <p>{{this.receiver}}</p>
+
+            </div>
+
+            <div class="container">
+
+                <p>{{this.amount}}</p>
+            </div>
+
+            <div class="container">
+
+                <p>
+                    {{this.transaction_date}}
+                </p>
+
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+
+
+</main>
