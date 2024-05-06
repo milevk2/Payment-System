@@ -145,13 +145,14 @@
             <a href="/">Home</a>
             <a href="#">Information</a>
             <a href="#">Merchants</a>
-            <a href="/transactions">Transactions</a>
+            
             {{#if isToken}}
             
             <a href="/register">Register</a>
             <a href="/login">Login</a>
             
             {{else}}
+            <a href="/transactions">Transactions</a>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout">Logout</a>
             {{/if}}
