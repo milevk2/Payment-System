@@ -22,6 +22,7 @@ exports.transferFunds = async (sender, receiver, amount) => {
 
     const tid = generateId('T');
     const transaction_date = new Date(Date.now());
+    amount = Number(amount);
 
     //TODO: the below must be configured as a DB transaction:
     const senderDoc = await User.findOne({ customerId: sender });
@@ -32,8 +33,14 @@ exports.transferFunds = async (sender, receiver, amount) => {
         throw new MongooseError(`Receiver with customer ID ${receiver} not found!`);
     }
 
-    senderDoc.balance = Number(senderDoc.balance) - Number(amount);
-    receiverDoc.balance = Number(receiverDoc.balance) + Number(amount);
+    if (senderDoc.balance < amount) {
+
+        throw new MongooseError('You can not transfer amounts larger than your account balance! Please deposit more funds from the dashboard!')
+
+    }
+
+    senderDoc.balance = Number(senderDoc.balance) - amount;
+    receiverDoc.balance = Number(receiverDoc.balance) + amount;
 
     await senderDoc.save();
     await receiverDoc.save();
@@ -42,10 +49,18 @@ exports.transferFunds = async (sender, receiver, amount) => {
 }
 //List all transactions per user.
 exports.getUserTransactions = async (customerId) => {
-  
 
-    return await Transaction.find({$or: [{sender: customerId}, {receiver: customerId}]}).lean();
+    return {
+        sent: (await Transaction.find({ sender: customerId }).lean()).map(formatDate),
+        received: (await Transaction.find({ receiver: customerId }).lean()).map(formatDate)
+    };
 
 }
 
+function formatDate(transaction) {
 
+    const date = transaction.transaction_date;
+    transaction.transaction_date = `${String(date.getDate()).padStart(2,'0')}/${String(date.getMonth()).padStart(2,'0')}/${date.getFullYear()}`
+    return transaction;
+
+}
