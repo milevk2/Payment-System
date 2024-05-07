@@ -6,12 +6,13 @@
     - [Card Service](#card-service)
     - [Transaction Service](#transaction-service)
     - [User Service](#user-service)
+- [Models](#models)
 - [Example](#example)
 - [Unit Tests](#unit-tests)
 
 # **Key Features**
 
-1. Guests do not have access to services.
+1. GuestN.bs do not have access to services.
 2. Registered users have their own unique customerId generated with which they can transact with other users.
 3. Registered users can add cards (it is a mocking service, not a real credit card) - they are being automatically generated.
 4. Assuming the cards are real and always with positive balances - users can deposit funds to their user/customer accounts.
@@ -33,6 +34,9 @@ To get started with this project, follow these steps:
 
 
 # Services
+
+**N.B! Most services must be implemented as a DB transactions in order to achieve atomicity , but I failed to configure the mongoDB to work with transactions! If working with an actual DB this would have been solved with couple of lines of code.**
+
 
 There are 3 main services with their own functionalities:
 
@@ -101,7 +105,6 @@ await User.findByIdAndUpdate({ _id: userId }, { $pull: { cards: { _id: cardId } 
 
 ```
 
-**N.B! This service must be implemented as a DB transaction in order to achieve atomicity , but I failed to configure the mongoDB to work with transactions!**
 
 ### Get User Cards
 
@@ -208,11 +211,20 @@ It is a function that accepts one parameter - it is a formData object generated 
 
     exports.createUser = async (data) => {
 
+    const email = await User.findOne({email: data.email})
+
+    if (email) {
+
+        throw new MongooseError('User with this email already exists!');
+    }
+
     return await User.create(data);
     
     }
 
 ```
+ 
+ If the email is taken, a new mongoose error is being thrown.
 
 ### Get User Data
 
@@ -273,3 +285,143 @@ exports.addCard = async (userId, schemaProvider, cardholder) => {
 
 ```
 
+### Models
+
+## Card Model
+
+```javascript
+
+const CardSchema = new mongoose.Schema({
+
+    owner_id: String,
+    cardholder: String,
+    card_number: String,
+    expiration: String,
+})
+
+```
+
+Prior to saving the db record of the card, there is a pre middleware function called:
+
+
+```javascript
+
+//this function is used to mask the card number:
+
+CardSchema.pre("save", maskCard);
+
+function maskCard() {
+
+    const masked = this.card_number.slice(0, 6)
+        .concat('******')
+        .concat(this.card_number
+            .slice(-4));
+
+    this.card_number = masked;
+}
+
+```
+
+## Deposit Model
+
+```javascript
+
+const DepositSchema = new mongoose.Schema({
+
+    userId: String,
+    amount: Number,
+    card_number: String,
+    card_id: String,
+    deposit_date: Date,
+
+})
+
+```
+
+
+## Transaction Model
+
+```javascript
+
+const TransactionSchema = new mongoose.Schema({
+
+    tid: String,
+    sender: String,
+    receiver: String,
+    amount: Number,
+    transaction_date: Date,
+
+})
+
+```
+
+
+## User Model
+
+User Model Schema:
+
+```javascript
+
+const UserSchema = new mongoose.Schema({
+
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    
+    address: String,
+    phone: String,
+    DOB: Date,
+
+    cards: {
+        type: [CardSchema],
+        validate: [cardArrayLimit, '{PATH} exceeds the limit of 5']
+    },    
+    balance: Number,
+    customerId: String
+})
+
+```
+
+Before creating and modifying the user there is a virtual function which checks whether user's password and rePassword match:
+
+```javascript
+
+UserSchema.virtual("rePassword").set(function (value) {
+
+    if (value != this.password) {
+        throw new mongoose.MongooseError("Password missmatch!");
+    }
+});
+
+```
+
+Also there is a pre save middleware which encrypts the password and generates user's customerId by using util function `generateId` , then sets the user's account balance to 0:
+
+
+```javascript
+
+
+UserSchema.pre("save", async function () {
+
+    if (this.__v !==  undefined) return;  //only generate customerId, password hash and set balance to 0 if document does not exist; 
+
+    this.customerId = generateId('C0');
+    this.password = await bcrypt.hash(this.password, 10);
+    this.balance = 0;
+});
+
+```
