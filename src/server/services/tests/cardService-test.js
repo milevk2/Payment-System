@@ -11,6 +11,7 @@ const expect = chai.expect;
 
 before(async () => {
     await mongoose.connect('mongodb://localhost:27018/test');
+    await mongoose.connection.db.dropDatabase();
 });
 
 // Disconnect from the database after tests
@@ -23,9 +24,9 @@ let user;
 let userId;
 let cardholder;
 
-beforeEach(async () => {
+before(async () => {
 
-
+    
     user = await userService.createUser({
 
         first_name: "John",
@@ -109,13 +110,27 @@ describe('deleteCard', async () => {
 
 describe('getUserCards', async () => {
 
-    it('Should return an array with the correct length', async () => {
+    it('Should return an array with the correct length (for this test - 3)', async () => {
 
-        await userService.addCard(userId, '3', cardholder);
-        await userService.addCard(userId, '4', cardholder);
-        await userService.addCard(userId, '5', cardholder);
+        /*added due to email: required: true 
+            This way the test is more isolated.
+        */
+        const mockUser = await userService.createUser({
 
-        const resultArr = await cardService.getUserCards(userId);
+            first_name: "Mark",
+            last_name: "Doe",
+            email: "mark.doe@example.com",
+            password: "password",
+            address: "123 Main St",
+            phone: "123-456-7890",
+            DOB: new Date('1990-01-01'),
+        })
+
+        await userService.addCard(mockUser._id, '3', `${mockUser.first_name} ${mockUser.last_name}`);
+        await userService.addCard(mockUser._id, '4',  `${mockUser.first_name} ${mockUser.last_name}`);
+        await userService.addCard(mockUser._id, '5',  `${mockUser.first_name} ${mockUser.last_name}`);
+
+        const resultArr = await cardService.getUserCards(mockUser._id);
         expect(resultArr).to.be.an.instanceof(Array);
         expect(resultArr.length).to.equal(3);
     });
