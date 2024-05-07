@@ -136,43 +136,51 @@ app.post('/register', async (req, res) => {
 
 app.post('/depositFunds', async (req, res) => {
 
-    const { card_id, card_number, amount } = req.body;
-    const userId = req.userData.userId;
-
     try {
-        await transactionService.depositFunds(userId, amount, card_number, card_id);
-        res.redirect('/dashboard');
+        const { card_id, card_number, amount } = req.body;
+        const userId = req.userData.userId;
+
+        try {
+            await transactionService.depositFunds(userId, amount, card_number, card_id);
+            res.redirect('/dashboard');
+        }
+        catch (err) {
+
+            console.log(err);
+            res.render('error', { err })
+        }
+
     }
     catch (err) {
-        
-        console.log(err);
-        res.render('error', {err})
+
+        res.clearCookie('jwtToken');
+        res.redirect('/');
     }
 })
 
-app.post('/transfer', async(req, res)=> {
+app.post('/transfer', async (req, res) => {
 
     const sender = req.userData.customerId;
     const receiver = req.body.customerId;
     const amount = req.body.amount;
 
-    try{
+    try {
         await transactionService.transferFunds(sender, receiver, amount);
         res.redirect('/dashboard');
     }
-    catch(err){
+    catch (err) {
         console.log(err);
-        res.render('error', {err})
+        res.render('error', { err })
     }
 })
 
-app.get('/transactions', async(req, res) => {
+app.get('/transactions', async (req, res) => {
 
     const customerId = req.userData.customerId;
 
-    const userTransactions  = await transactionService.getUserTransactions(customerId);
+    const userTransactions = await transactionService.getUserTransactions(customerId);
 
-    res.render('transactions', {userTransactions});
+    res.render('transactions', { userTransactions });
 
 })
 
