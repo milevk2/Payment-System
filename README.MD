@@ -7,7 +7,11 @@
     - [Transaction Service](#transaction-service)
     - [User Service](#user-service)
 - [Models](#models)
-- [Example](#example)
+    -[Card Model](#card-model)
+    -[Deposit Model](#deposit-model)
+    -[Transaction Model](#transaction-model)
+    -[User Model](#user-model)
+- [Helper Functions](#helper-functions)
 - [Unit Tests](#unit-tests)
 
 # **Key Features**
@@ -425,3 +429,80 @@ UserSchema.pre("save", async function () {
 });
 
 ```
+
+### Helper Functions
+
+1. `generateId` - it is used to generate random ID's. It accepts id_type (string) as an argument, which is the substring the ID starts with:
+
+- 'C0' - for customerId's;
+- 'T' - for transaction ID's (tid);
+
+```javascript
+
+function generateId(id_type) {
+
+    let id = id_type;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    for (let i = 1; i <= 10; i++) {
+
+        let character = '';
+
+        if (i % 2 == 0) {
+
+            character = Math.floor(Math.random() * 10);
+            id = id.concat(character);
+            continue;
+        }
+
+        character = letters[Math.floor(Math.random() * letters.length)];
+        id = id.concat(character);
+    }
+    return id;
+}
+
+
+```
+2. `promisifiedJwt` dictionary:
+
+This has been created in order to ease the work with jwt token.
+
+```javascript
+
+const jsonwebtoken = require('jsonwebtoken');
+const { promisify } = require('util');
+
+const jwt = {
+
+    sign: promisify(jsonwebtoken.sign),
+    verify: promisify(jsonwebtoken.verify)
+}
+
+module.exports = jwt;
+
+
+```
+
+### Unit Tests
+
+In order to test services, open the /services/tests dir with your terminal.
+
+Here are the commands for testing each service:
+
+1. `userService` 
+
+```bash 
+mocha userService-test.js
+``` 
+
+2. `cardService` 
+
+```bash 
+mocha cardService-test.js
+``` 
+
+3. `transactionService` 
+
+```bash 
+mocha transactionService-test.js
+``` 
