@@ -144,9 +144,9 @@ app.post('/depositFunds', async (req, res) => {
         await transactionService.depositFunds(userId, amount, card_number, card_id);
         res.redirect('/dashboard');
     }
-    catch (error) {
-        console.log(error);
-        const err = {message: 'Unable to transfer the funds! Please try again later!'}
+    catch (err) {
+        
+        console.log(err);
         res.render('error', {err})
     }
 })
