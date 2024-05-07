@@ -7,6 +7,13 @@ const { MongooseError } = require('mongoose');
 
 exports.createUser = async (data) => {
 
+    const email = await User.findOne({email: data.email})
+
+    if (email) {
+
+        throw new MongooseError('User with this email already exists!');
+    }
+
     return await User.create(data);
 }
 
