@@ -29,7 +29,7 @@ To get started with this project, follow these steps:
 5. Visit `http://localhost:3000/`.
 
 
-## **Services**
+## Services
 
 There are 3 main services with their own functionalities:
 
@@ -208,7 +208,7 @@ exports.getUserTransactions = async (customerId) => {
 
 ```
 
-    ## Get User Data
+## Get User Data
 
     This service accepts a userId and returns an object with User's detail as a js object:
 
