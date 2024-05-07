@@ -8,10 +8,10 @@
     - [Transaction Service](#transaction-service)
     - [User Service](#user-service)
 - [Models](#models)
-    -[Card Model](#card-model)
-    -[Deposit Model](#deposit-model)
-    -[Transaction Model](#transaction-model)
-    -[User Model](#user-model)
+    - [Card Model](#card-model)
+    - [Deposit Model](#deposit-model)
+    - [Transaction Model](#transaction-model)
+    - [User Model](#user-model)
 - [Helper Functions](#helper-functions)
 - [Unit Tests](#unit-tests)
 - [Swagger](#swagger)
@@ -60,6 +60,30 @@ To get started with this project, follow these steps:
 | [mocha](https://www.npmjs.com/package/mocha)                 | ^10.4.0   |
 | [nodemon](https://www.npmjs.com/package/nodemon)               | ^3.1.0    |
 
+
+JSON format to copy:
+
+```json
+
+ {
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.4.1",
+    "chai-as-promised": "^7.1.1",
+    "chai-jwt": "^2.0.0",
+    "mocha": "^10.4.0",
+    "nodemon": "^3.1.0"
+  }
+}
+
+```
 
 # Services
 
