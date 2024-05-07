@@ -62,6 +62,7 @@ To get started with this project, follow these steps:
 | [mocha](https://www.npmjs.com/package/mocha)                 | ^10.4.0   |
 | [nodemon](https://www.npmjs.com/package/nodemon)               | ^3.1.0    |
 
+*language model helped me with generation of this table;
 
 JSON format to copy:
 
@@ -85,9 +86,8 @@ JSON format to copy:
   }
 }
 
-*language model helped me with generation of this table;
-
 ```
+
 
 # Services
 
