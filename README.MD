@@ -39,9 +39,9 @@ There are 3 main services with their own functionalities:
 ### Card Service 
 
 `cardService.js` responsible for:
-    - card creation; - [Create Card](#create-card);
-    - card deletion - [Delete Card](#delete-card);
-    - getting all cards related to certain user - [Get User Cards](#get-user-cards);
+- card creation; - [Create Card](#create-card);
+- card deletion - [Delete Card](#delete-card);
+- getting all cards related to certain user - [Get User Cards](#get-user-cards);
 
 cardService utilizes 2 private functions:
 
@@ -130,7 +130,7 @@ exports.getUserCards = (userId) => {
 
 ## Deposit Funds
 
-    This fnction accepts 4 parameters:
+This fnction accepts 4 parameters:
 
 ```javascript
 
