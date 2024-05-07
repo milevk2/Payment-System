@@ -136,7 +136,6 @@ app.post('/register', async (req, res) => {
 
 app.post('/depositFunds', async (req, res) => {
 
-
     const { card_id, card_number, amount } = req.body;
     const userId = req.userData.userId;
 
