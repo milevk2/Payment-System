@@ -32,7 +32,7 @@ To get started with this project, follow these steps:
 5. Visit `http://localhost:3000/`.
 
 
-### Services
+## Services
 
 There are 3 main services with their own functionalities:
 
