@@ -1,4 +1,4 @@
-## **Payments System**
+# **Payments System**
 
 A payments system where users could register, add(generate) cards, deposit funds from cards to their user/client accounts and transfer funds between each other.
 
@@ -341,7 +341,7 @@ exports.addCard = async (userId, schemaProvider, cardholder) => {
 
 ```
 
-### Models
+# Models
 
 ## Card Model
 
