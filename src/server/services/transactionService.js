@@ -33,6 +33,11 @@ exports.transferFunds = async (sender, receiver, amount) => {
         throw new MongooseError(`Receiver with customer ID ${receiver} not found!`);
     }
 
+    if(sender == receiver) {
+
+        throw new Error('You can not transfer funds to yourself!')
+    }
+
     if (senderDoc.balance < amount) {
 
         throw new MongooseError('You can not transfer amounts larger than your account balance! Please deposit more funds from the dashboard!')
