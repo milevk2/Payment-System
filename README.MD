@@ -36,7 +36,9 @@ To get started with this project, follow these steps:
 
 There are 3 main services with their own functionalities:
 
-## Card Service `cardService.js` responsible for:
+### Card Service 
+
+`cardService.js` responsible for:
     - card creation; - [Create Card](#create-card);
     - card deletion - [Delete Card](#delete-card);
     - getting all cards related to certain user - [Get User Cards](#get-user-cards);
@@ -113,7 +115,9 @@ exports.getUserCards = (userId) => {
 }
 ```
 
-### Transaction Service  `transactionService.js` responsible for:
+### Transaction Service 
+
+ `transactionService.js` responsible for:
     - Depositing funds- [Deposit Funds](#deposit-funds);
     - Getting all deposits by userId - [Get Deposits](#get-deposits);
     - Transfering funds between customer accounts - [Funds Transfer](#funds-transfer);
