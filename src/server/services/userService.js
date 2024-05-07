@@ -47,4 +47,5 @@ exports.addCard = async (userId, schemaProvider, cardholder) => {
     const card = await createCard(userId, schemaProvider, cardholder);
     user.cards.push(card);
     await user.save();
+    return card._id;
 }

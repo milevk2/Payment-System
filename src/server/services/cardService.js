@@ -1,9 +1,7 @@
 const { Card } = require('../models/CardModel.js');
-const mongoose = require('mongoose');
 const { MongooseError } = require('mongoose');
 const User = require('../models/UserModel.js');
 
-//create credit card
 exports.createCard = async (userId, schemaProvider, cardholder) => {
 
     const cardNumber = generateCardNumber(schemaProvider);
@@ -18,12 +16,10 @@ exports.createCard = async (userId, schemaProvider, cardholder) => {
     });
 }
 
-
-//delete credit card
 exports.deleteCard = async (userId, cardId) => {
 
+    //TODO: configure the mongodb in order to be able to process transactions and write the below code as a DB transaction:
     // const session = await mongoose.startSession();
-
     // session.startTransaction()
 
     const result = await Card.deleteOne({ _id: cardId, owner_id: userId });
@@ -34,15 +30,12 @@ exports.deleteCard = async (userId, cardId) => {
     }
 
     await User.findByIdAndUpdate({ _id: userId }, { $pull: { cards: { _id: cardId } } });
+    return result;
     // await session.commitTransaction();
 }
     
-
-
-
 //list all cards per user
 exports.getUserCards = (userId) => {
-
 
     return Card.find({ owner_id: userId }).lean();
 }
