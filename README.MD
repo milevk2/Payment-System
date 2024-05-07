@@ -13,6 +13,7 @@
     -[User Model](#user-model)
 - [Helper Functions](#helper-functions)
 - [Unit Tests](#unit-tests)
+- [Swagger](#swagger)
 
 # **Key Features**
 
@@ -430,7 +431,7 @@ UserSchema.pre("save", async function () {
 
 ```
 
-### Helper Functions
+# Helper Functions
 
 1. `generateId` - it is used to generate random ID's. It accepts id_type (string) as an argument, which is the substring the ID starts with:
 
@@ -483,7 +484,7 @@ module.exports = jwt;
 
 ```
 
-### Unit Tests
+# Unit Tests
 
 In order to test services, open the /services/tests dir with your terminal.
 
@@ -506,3 +507,219 @@ mocha cardService-test.js
 ```bash 
 mocha transactionService-test.js
 ``` 
+
+# Swagger
+
+Don't rely too much on it, it will be fixed in the future. 
+
+```yaml
+openapi: 3.0.0
+info:
+  title: Express Banking Application Endpoints
+  description: Documentation for the endpoints of a banking application built with Express
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /:
+    get:
+      summary: Get Home Page
+      description: Retrieve the home page of the application.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+  /login:
+    get:
+      summary: Get Login Page
+      description: Retrieve the login page of the application.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+    post:
+      summary: Authenticate User
+      description: Authenticate a user and create a session.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '302':
+          description: Redirect to Dashboard
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /dashboard:
+    get:
+      summary: Get User Dashboard
+      description: Retrieve the user's dashboard.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+  /createCard:
+    post:
+      summary: Create a Card
+      description: Create a new card for the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                schemaProvider:
+                  type: string
+              required:
+                - schemaProvider
+      responses:
+        '302':
+          description: Redirect to Dashboard
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /deleteCard/{id}:
+    get:
+      summary: Delete a Card
+      description: Delete a card belonging to the user.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect to Dashboard
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /register:
+    get:
+      summary: Get Registration Page
+      description: Retrieve the registration page of the application.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+    post:
+      summary: Register User
+      description: Register a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                // Define properties for user registration
+              required:
+                - // Specify required fields for registration
+      responses:
+        '302':
+          description: Redirect to Login Page
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /depositFunds:
+    post:
+      summary: Deposit Funds
+      description: Deposit funds to a user's account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                // Define properties for depositing funds
+              required:
+                - // Specify required fields for depositing funds
+      responses:
+        '302':
+          description: Redirect to Dashboard
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /transfer:
+    post:
+      summary: Transfer Funds
+      description: Transfer funds between user accounts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                // Define properties for transferring funds
+              required:
+                - // Specify required fields for transferring funds
+      responses:
+        '302':
+          description: Redirect to Dashboard
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /transactions:
+    get:
+      summary: Get User Transactions
+      description: Retrieve the transactions of the authenticated user.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /logout:
+    get:
+      summary: Logout
+      description: Clear user session and log out.
+      responses:
+        '302':
+          description: Redirect to Home Page
+        '500':
+          description: Internal Server Error
+
+
+```
