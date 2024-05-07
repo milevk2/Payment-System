@@ -2,8 +2,8 @@
 
 - [Key Features](#key-features)
 - [Getting Started](#getting-started)
-- [Services] (#services)
-    - [Card Service](#card-service);
+- [Services](#services)
+    - [Card Service](#card-service)
     - [Transaction Service](#transaction-service)
     - [User Service](#user-service)
 - [Example](#example)
