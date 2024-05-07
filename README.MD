@@ -3,6 +3,9 @@
 - [Key Features](#key-features)
 - [Getting Started](#getting-started)
 - [Services] (#services)
+    - [Card Service](#card-service);
+    - [Transaction Service](#transaction-service)
+    - [User Service](#user-service)
 - [Example](#example)
 - [Unit Tests](#unit-tests)
 
@@ -33,7 +36,7 @@ To get started with this project, follow these steps:
 
 There are 3 main services with their own functionalities:
 
-1. `cardService.js` responsible for:
+## Card Service `cardService.js` responsible for:
     - card creation; - [Create Card](#create-card);
     - card deletion - [Delete Card](#delete-card);
     - getting all cards related to certain user - [Get User Cards](#get-user-cards);
@@ -43,7 +46,7 @@ cardService utilizes 2 private functions:
 `generateCardNumber` - creating a random card number for the currently created card;
 `createExpirationDate` - creating an expiration date for the currently created card;
 
-### Create Card
+## Create Card
 
     It is an async function which accepts 3 parameters:
 
@@ -110,7 +113,7 @@ exports.getUserCards = (userId) => {
 }
 ```
 
-2.  `transactionService.js` responsible for:
+### Transaction Service  `transactionService.js` responsible for:
     - Depositing funds- [Deposit Funds](#deposit-funds);
     - Getting all deposits by userId - [Get Deposits](#get-deposits);
     - Transfering funds between customer accounts - [Funds Transfer](#funds-transfer);
@@ -186,7 +189,8 @@ exports.getUserTransactions = async (customerId) => {
 }
 ```
 
-3.  `userService.js` responsible for:
+### User Service
+    **`userService.js` responsible for:**
     - Creating new user- [Create User](#create-user);
     - Getting user data/details - [Get User Data](#get-user-data);
     - Login - [Login](#login);
