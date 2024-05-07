@@ -124,8 +124,8 @@ app.post('/register', async (req, res) => {
     const isToken = !req.isToken;
 
     try {
-        await userService.createUser(req.body);
-        const successMessage = { message: 'You have been successfully registered!' }
+       const userDoc = await userService.createUser(req.body);
+        const successMessage = { message: `You have been successfully registered! Your clientId is ${userDoc.customerId}. Save it somewhere so you can use it for transfers!` }
         res.render('login', { successMessage, isToken });
     }
     catch (err) {
@@ -188,6 +188,12 @@ app.get('/logout', (req, res) => {
 
     res.clearCookie('jwtToken');
     res.redirect('/');
+})
+
+app.get('/info', (req, res) => {
+
+    res.render(`info`)
+
 })
 
 

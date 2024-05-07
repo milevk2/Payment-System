@@ -1,5 +1,7 @@
 ## **Payments System**
 
+A payments system where users could register, add(generate) cards, deposit funds from cards to their user/client accounts and transfer funds between each other.
+
 - [Key Features](#key-features)
 - [Dependencies](#dependencies)
 - [Getting Started](#getting-started)

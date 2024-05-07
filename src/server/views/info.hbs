@@ -1,0 +1,57 @@
+<main>
+
+    <style>
+
+            h2{
+                text-align: center;
+                margin: 25px;
+                letter-spacing: 2px;
+            }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            list-style-type: disc;
+        }
+
+        a.link {
+
+            
+            font-weight: bold
+
+        }
+
+    </style>
+
+    <h2>
+
+        A payments system where users could register, add(generate) cards, deposit funds from cards to their user/client
+        accounts and transfer funds between each other.
+
+    </h2>
+
+    <ul>
+        <li>Guests do not have access to services.</li>
+        <li>Registered users have their own unique customerId generated with which they can transact with other users.
+        </li>
+        <li>Registered users can add cards (it is a mocking service, not a real credit card) - they are being
+            automatically generated.</li>
+        <li>Assuming the cards are real and always with positive balances - users can deposit funds to their
+            user/customer accounts.</li>
+        <li>If user has enough balance on the account, they could transfer funds to another user/customer accounts.</li>
+        <li>User view all related transactions separated in two tables:
+            <ul>
+                <li>received transactions;</li>
+                <li>sent transactions;</li>
+            </ul>
+        </li>
+        <li>Users can not transfer zero or negative amounts - both for deposits and transactions.</li>
+        <li>User authentication through json web token (jwt) which is being signed and sent after user login;</li>
+    </ul>
+
+    <iframe src="https://drive.google.com/file/d/181f-v3nFryIsVpOppEWot-z3uwl72lPx/preview" width="640" height="480" allow="autoplay"></iframe>
+
+    <a class='link' href="https://github.com/milevk2/Payment-System">Project's github</a>
+
+</main>

@@ -140,12 +140,11 @@
 
 <body>
     <div>
-        <h1>Transactions Processing System</h1>
+        <h1>Milev's Payment System</h1>
         <nav>
             <a href="/">Home</a>
-            <a href="#">Information</a>
-            <a href="#">Merchants</a>
-            
+            <a href="/info">Information</a>
+                       
             {{#if isToken}}
             
             <a href="/register">Register</a>
@@ -156,15 +155,7 @@
             <a href="/dashboard">Dashboard</a>
             <a href="/logout">Logout</a>
             {{/if}}
-            <span class="searchForm">
-                <form action="/getMerchant" method="get">
-
-                    <label for="search"></label>
-                    <input type="text" for="search" name="search" id="search"
-                        placeholder="Search for merchant's profiles">
-                    <button type="submit" id="searchBtn">Search</button>
-                </form>
-            </span>
+            
         </nav>
 
         {{{body}}}
