@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
@@ -55,7 +56,6 @@ UserSchema.pre("save", async function () {
     this.customerId = generateId('C0');
     this.password = await bcrypt.hash(this.password, 10);
     this.balance = 0;
-
 });
 
 const User = mongoose.model('User', UserSchema);
