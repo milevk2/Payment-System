@@ -1,6 +1,7 @@
 ## **Payments System**
 
 - [Key Features](#key-features)
+- [Dependencies](#dependencies)
 - [Getting Started](#getting-started)
 - [Services](#services)
     - [Card Service](#card-service)
@@ -36,6 +37,28 @@ To get started with this project, follow these steps:
 3. Open the terminal in src/server directory.
 4. Type npm run start in the terminal and hit enter.
 5. Visit `http://localhost:3000/`.
+
+# Dependencies
+
+
+| Dependency            | Version   |
+|-----------------------|-----------|
+| [bcrypt](https://www.npmjs.com/package/bcrypt)                | ^5.1.1    |
+| [cookie-parser](https://www.npmjs.com/package/cookie-parser)         | ^1.4.6    |
+| [express](https://www.npmjs.com/package/express)               | ^4.18.2   |
+| [express-handlebars](https://www.npmjs.com/package/express-handlebars)    | ^7.1.2    |
+| [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)          | ^9.0.2    |
+| [mongoose](https://www.npmjs.com/package/mongoose)              | ^8.1.1    |
+
+### DevDependencies:
+
+| Dependency            | Version   |
+|-----------------------|-----------|
+| [chai](https://www.npmjs.com/package/chai)                  | ^4.4.1    |
+| [chai-as-promised](https://www.npmjs.com/package/chai-as-promised)      | ^7.1.1    |
+| [chai-jwt](https://www.npmjs.com/package/chai-jwt)              | ^2.0.0    |
+| [mocha](https://www.npmjs.com/package/mocha)                 | ^10.4.0   |
+| [nodemon](https://www.npmjs.com/package/nodemon)               | ^3.1.0    |
 
 
 # Services
