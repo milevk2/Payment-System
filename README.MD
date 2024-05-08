@@ -1,6 +1,8 @@
 # **Payments System**
 
-A payments system where users could register, add(generate) cards, deposit funds from cards to their user/client accounts and transfer funds between each other.
+A payments system where users can register, add(generate) cards, deposit funds from cards to their user/client accounts and transfer funds between each other.
+
+By default the `server` is listening on port `3000`, while the `database` is on port `27018`. Adjust them as per your needs from `server.js` and `dbConfig.js `respectively.
 
 - [Key Features](#key-features)
 - [Dependencies](#dependencies)
@@ -20,16 +22,18 @@ A payments system where users could register, add(generate) cards, deposit funds
 
 # **Key Features**
 
-1. GuestN.bs do not have access to services.
+1. Guests do not have access to services.
 2. Registered users have their own unique customerId generated with which they can transact with other users.
+  - the customerId is in the following format: `C0C6Z6M1V8H1` and the server provides it after successful user registration ;
 3. Registered users can add cards (it is a mocking service, not a real credit card) - they are being automatically generated.
-4. Assuming the cards are real and always with positive balances - users can deposit funds to their user/customer accounts.
-5. If user has enough balance on the account, they could transfer funds to another user/customer accounts.
-6. User view all related transactions separated in two tables:
+4. Users can delete their cards.
+5. Assuming the cards are real and always with positive balances - users can deposit funds to their user/customer accounts.
+6. If user has enough balance on the account, they could transfer funds to other user/customer accounts.
+7. User can view all related transactions separated in two tables:
     - received transactions;
     - sent transactions;
-7. Users can not transfer zero or negative amounts - both for deposits and transactions.
-8. User authentication through json web token (jwt) which is being signed and sent after user login;
+8. Users can not transfer zero or negative amounts - both for deposits and transactions.
+9. User authentication through json web token (jwt) which is being signed and sent after user login;
 
 # Getting Started
 To get started with this project, follow these steps:
