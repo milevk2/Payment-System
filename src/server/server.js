@@ -17,19 +17,19 @@ serverConfig(app);
 
         console.log(err);
     }
-})()
+})();
 
 app.get('/', (req, res) => {
 
     const isToken = !req.isToken;
     res.render('home', { isToken });
-})
+});
 
 app.get('/login', (req, res) => {
 
     const isToken = !req.isToken;
     res.render('login', { isToken });
-})
+});
 
 app.post('/login', async (req, res) => {
 
@@ -47,14 +47,14 @@ app.post('/login', async (req, res) => {
         const err = { message: 'Invalid username or password!' }
         res.render('error', { err, isToken });
     }
-})
+});
 
 app.get('/dashboard', async (req, res) => {
 
     const isToken = !req.isToken;
     const { cards, balance } = await userService.getUserData(req.userData.userId);
     res.render('dashboard', { cards, balance, isToken });
-})
+});
 
 app.post('/createCard', async (req, res) => {
 
@@ -71,7 +71,7 @@ app.post('/createCard', async (req, res) => {
         res.render('error', { err })
         console.log(err.message);
     }
-})
+});
 
 app.get('/deleteCard/:id', async (req, res) => {
 
@@ -86,13 +86,13 @@ app.get('/deleteCard/:id', async (req, res) => {
 
         res.render('error', { err });
     }
-})
+});
 
 app.get('/register', (req, res) => {
 
     const isToken = !req.isToken;
     res.render('register', { isToken });
-})
+});
 
 app.post('/register', async (req, res) => {
 
@@ -107,7 +107,7 @@ app.post('/register', async (req, res) => {
 
         res.render('register', { err });
     }
-})
+});
 
 app.post('/depositFunds', async (req, res) => {
 
@@ -123,7 +123,7 @@ app.post('/depositFunds', async (req, res) => {
         console.log(err);
         res.render('error', { err })
     }
-})
+});
 
 app.post('/transfer', async (req, res) => {
 
@@ -139,25 +139,32 @@ app.post('/transfer', async (req, res) => {
         console.log(err);
         res.render('error', { err })
     }
-})
+});
 
 app.get('/transactions', async (req, res) => {
 
     const customerId = req.userData.customerId;
     const userTransactions = await transactionService.getUserTransactions(customerId);
     res.render('transactions', { userTransactions });
-})
+});
 
 app.get('/logout', (req, res) => {
 
     res.clearCookie('jwtToken');
     res.redirect('/');
-})
+});
 
 app.get('/info', (req, res) => {
 
     const isToken = !req.isToken;
     res.render(`info`, { isToken });
-})
+});
 
-app.listen(3000, () => console.log('The server is listening on port 3000!'))
+app.get('*', (req, res)=> {
+
+    const err = {message: `Can not get path ${req.path} as it does not exist.` }
+    const isToken = !req.isToken;
+    res.render('error',{err, isToken});
+});
+
+app.listen(3000, () => console.log('The server is listening on port 3000!'));
