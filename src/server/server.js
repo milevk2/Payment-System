@@ -56,11 +56,6 @@ app.get('/dashboard', async (req, res) => {
 
     const isToken = !req.isToken;
 
-    if (!req.userData) {
-
-        res.send('You are not authorized!');
-        return;
-    }
     const { cards, balance } = await userService.getUserData(req.userData.userId);
 
     res.render('dashboard', { cards, balance, isToken });
@@ -70,12 +65,6 @@ app.get('/dashboard', async (req, res) => {
 app.post('/createCard', async (req, res) => {
 
     const { schemaProvider } = req.body;
-
-    if (!req.userData) {
-
-        res.send('You are not authorized!');
-        return;
-    }
 
     const { userId, first_name, last_name } = req.userData;
 
@@ -124,7 +113,7 @@ app.post('/register', async (req, res) => {
     const isToken = !req.isToken;
 
     try {
-       const userDoc = await userService.createUser(req.body);
+        const userDoc = await userService.createUser(req.body);
         const successMessage = { message: `You have been successfully registered! Your clientId is ${userDoc.customerId}. Save it somewhere so you can use it for transfers!` }
         res.render('login', { successMessage, isToken });
     }
@@ -135,6 +124,8 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/depositFunds', async (req, res) => {
+
+
 
     try {
         const { card_id, card_number, amount } = req.body;
@@ -192,7 +183,8 @@ app.get('/logout', (req, res) => {
 
 app.get('/info', (req, res) => {
 
-    res.render(`info`)
+    const isToken = !req.isToken;
+    res.render(`info`, { isToken })
 
 })
 
