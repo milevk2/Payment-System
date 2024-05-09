@@ -1,14 +1,14 @@
-function isToken(req, res, next) {
+function routeGuardMiddleware(req, res, next) {
 
-    const isToken = !!req.isToken;
-  
-     
+    const token = !!req.isToken;
+       
     if (req.path == '/dashboard' || req.path == '/createCard' || req.path == '/deleteCard' || req.path == '/depositFunds' || req.path == '/transfer' || req.path == '/transactions') {
      
-        if (!isToken) {
+        if (!token) {
             res.status(403);
             const err = {message: 'Not authorized or your session has expired!'};
-            res.render('error', {err});
+            const isToken = !token;
+            res.render('error', {err, isToken});
             return;
         }
     }
@@ -16,4 +16,4 @@ function isToken(req, res, next) {
     next();
 }
 
-module.exports = isToken;
+module.exports = routeGuardMiddleware;

@@ -3,7 +3,7 @@ const serverLogger = require('../middlewares/serverLogger.js');
 const authMiddleWare = require('../middlewares/authMiddleware.js');
 const handlebarsConfig = require('./handlebarsConfig.js');
 const cookieParser = require('cookie-parser');
-const isToken = require('../middlewares/routeGuard.js');
+const routeGuardMiddleware = require('../middlewares/routeGuardMiddleware.js');
 
 function serverConfig(app) {
 
@@ -11,7 +11,7 @@ function serverConfig(app) {
     app.use(cookieParser());
     app.use(serverLogger);
     app.use(authMiddleWare);
-    app.use(isToken);
+    app.use(routeGuardMiddleware);
     handlebarsConfig(app);
 }
 
