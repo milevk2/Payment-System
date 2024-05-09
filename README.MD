@@ -17,6 +17,10 @@ By default the `server` is listening on port `3000`, while the `database` is on 
     - [Transaction Model](#transaction-model)
     - [User Model](#user-model)
 - [Helper Functions](#helper-functions)
+- [Middlewares](#Middlewares)
+    - [Authorization Middleware](#authorization-middleware)
+    - [Route Guard Middleware](#route-guard-middleware)
+    - [Server Logger Middleware](#server-logger-middleware)
 - [Unit Tests](#unit-tests)
 - [Swagger](#swagger)
 
@@ -537,6 +541,48 @@ const jwt = {
 module.exports = jwt;
 
 
+```
+
+# Middlewares
+- [Authorization Middleware](#authorization-middleware)
+- [Route Guard Middleware](#route-guard-middleware)
+- [Server Logger Middleware](#server-logger-middleware)
+
+
+## Authorization Middleware
+`authMiddleWare` takes the jwtToken from the request's cookies, verifies, then saves the decodedToken in request's userData property and sets request's isToken property to true.
+
+```javascript
+const decodedToken = await jwt.verify(token, secret);
+req.userData = decodedToken;
+req.isToken = true;
+
+```
+
+if an error occurs, it clears the client's jwt token and redirects to login page.
+
+
+## Route Guard Middleware
+
+`routeGuardMiddleware` - checks whether the user has the needed token in order to access guarded endpoints, accessible only by logged in users:
+
+1. /dashboard
+2. /createCard
+3. /deleteCard
+4. /depositFunds
+5. /transfer
+6. /transactions
+
+If user do not have token, a status `403` is being sent and then rendering message `Not authorized or your session has expired!`
+
+## Server Logger Middleware
+
+For each request it is logging the requested path and it's date and time in the following format:
+
+```bash
+<DD/MM/YYYY:HH:MM:SS>: /
+
+<09/05/2024:11:33:04>: /
 ```
 
 # Unit Tests
