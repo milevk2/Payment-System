@@ -23,14 +23,12 @@ app.get('/', (req, res) => {
 
     const isToken = !req.isToken;
     res.render('home', { isToken });
-
 })
 
 app.get('/login', (req, res) => {
 
     const isToken = !req.isToken;
     res.render('login', { isToken });
-
 })
 
 app.post('/login', async (req, res) => {
@@ -48,24 +46,19 @@ app.post('/login', async (req, res) => {
         console.log(error);
         const err = { message: 'Invalid username or password!' }
         res.render('error', { err, isToken });
-
     }
 })
 
 app.get('/dashboard', async (req, res) => {
 
     const isToken = !req.isToken;
-
     const { cards, balance } = await userService.getUserData(req.userData.userId);
-
     res.render('dashboard', { cards, balance, isToken });
-
 })
 
 app.post('/createCard', async (req, res) => {
 
     const { schemaProvider } = req.body;
-
     const { userId, first_name, last_name } = req.userData;
 
     try {
@@ -85,12 +78,6 @@ app.get('/deleteCard/:id', async (req, res) => {
     const cardId = req.params.id;
     const { userId } = req.userData;
 
-    if (!req.userData) {
-
-        res.send('You are not authorized!');
-        return;
-    }
-
     try {
         await cardService.deleteCard(userId, cardId);
         res.redirect('/dashboard');
@@ -104,7 +91,6 @@ app.get('/deleteCard/:id', async (req, res) => {
 app.get('/register', (req, res) => {
 
     const isToken = !req.isToken;
-
     res.render('register', { isToken });
 })
 
@@ -125,27 +111,17 @@ app.post('/register', async (req, res) => {
 
 app.post('/depositFunds', async (req, res) => {
 
-
+    const { card_id, card_number, amount } = req.body;
+    const userId = req.userData.userId;
 
     try {
-        const { card_id, card_number, amount } = req.body;
-        const userId = req.userData.userId;
-
-        try {
-            await transactionService.depositFunds(userId, amount, card_number, card_id);
-            res.redirect('/dashboard');
-        }
-        catch (err) {
-
-            console.log(err);
-            res.render('error', { err })
-        }
-
+        await transactionService.depositFunds(userId, amount, card_number, card_id);
+        res.redirect('/dashboard');
     }
     catch (err) {
 
-        res.clearCookie('jwtToken');
-        res.redirect('/');
+        console.log(err);
+        res.render('error', { err })
     }
 })
 
@@ -168,11 +144,8 @@ app.post('/transfer', async (req, res) => {
 app.get('/transactions', async (req, res) => {
 
     const customerId = req.userData.customerId;
-
     const userTransactions = await transactionService.getUserTransactions(customerId);
-
     res.render('transactions', { userTransactions });
-
 })
 
 app.get('/logout', (req, res) => {
@@ -184,9 +157,7 @@ app.get('/logout', (req, res) => {
 app.get('/info', (req, res) => {
 
     const isToken = !req.isToken;
-    res.render(`info`, { isToken })
-
+    res.render(`info`, { isToken });
 })
-
 
 app.listen(3000, () => console.log('The server is listening on port 3000!'))
